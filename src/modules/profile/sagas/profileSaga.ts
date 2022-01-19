@@ -3,12 +3,18 @@ import { profileComplete, profileError, ProfileFetch } from '../actions';
 import { API, RequestOptions } from '../../../api';
 
 const profileOption: RequestOptions = {
-    apiVersion: 'init'
+    apiVersion: 'init',
+};
+
+interface ProfileResponse {
+    success: boolean;
+    data: string;
 };
 
 export function* profileSaga(action: ProfileFetch) {
     try {
-        yield call(API.post(profileOption), '/profile', action.payload);
+        const rsp: ProfileResponse = yield call(API.post(profileOption), '/profile', action.payload);
+        console.log(rsp);
         yield put(profileComplete({
             data: 'data'
         }));

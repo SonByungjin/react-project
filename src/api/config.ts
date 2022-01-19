@@ -20,4 +20,4 @@ export const BaseEnv = {
 window.env = window.env || defaultConfig;
 BaseEnv.config = { ...window.env };
 
-export const baseUrl = () => BaseEnv.config.baseUrl;
+export const baseUrl = () => BaseEnv.config.baseUrl || 'http://0.0.0.0:9002/api/init';
