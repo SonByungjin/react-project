@@ -4,7 +4,10 @@ import axios, {
     AxiosRequestConfig, 
     AxiosResponse 
 } from "axios";
-import { baseUrl } from "./config";
+import { 
+    baseUrl,
+    withCredentials
+} from "./config";
 import { RequestOptions } from "./index";
 
 export type HTTPMethod =
@@ -61,7 +64,7 @@ export const makeRequest = async ({ body, url, method }: Request, { headers, api
         headers: { ...headers, ...defaultHeaders } as any,
         method,
         url,
-        withCredentials: true,
+        withCredentials: withCredentials(),
     };
 
     return new Promise((resolve, reject) => {
