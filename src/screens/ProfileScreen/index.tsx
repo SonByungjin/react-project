@@ -18,7 +18,7 @@ export const ProfileScreen: FC = () => {
     },[dispatch, id])
 
     return (
-        <div>
+        <div className='pg-profile'>
             <h1>{profileData}</h1>
         </div>
     );

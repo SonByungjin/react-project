@@ -6,9 +6,13 @@ const argv = require('yargs').argv;
 const portAPI = argv.portAPI || 9002;
 const directory = argv.dir || 'mocks';
 
-mockserver.enableCORSForAPI=true
-mockserver.enableCORSForAllResponses=true
-process.on('SIGINT', () => { console.log("Bye bye!"); process.exit(); });
+mockserver.enableCORSForAPI = true;
+mockserver.enableCORSForAllResponses = true;
+
+process.on('SIGINT', () => {
+    console.log("Bye bye!");
+    process.exit();
+});
 
 class Mock {
     constructor(directory, port, verbose = true) {

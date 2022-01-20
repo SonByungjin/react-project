@@ -14,9 +14,8 @@ interface ProfileResponse {
 export function* profileSaga(action: ProfileFetch) {
     try {
         const rsp: ProfileResponse = yield call(API.post(profileOption), '/profile', action.payload);
-        console.log(rsp);
         yield put(profileComplete({
-            data: 'data'
+            data: rsp.data || 'blank'
         }));
     } catch (error: any) {
         yield put(profileError(error));
