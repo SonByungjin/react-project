@@ -9,4 +9,5 @@ interface LangType {
 export const languageMap: LangType = {
     default: ko,
     ko,
+    'ko-KR': ko,
 };
