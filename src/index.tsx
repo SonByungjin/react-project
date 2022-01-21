@@ -1,17 +1,43 @@
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { sagaMiddleware, store } from './store';
 import { rootSaga } from './modules';
-import { Provider } from 'react-redux';
+
+const httpLink = createHttpLink({
+  uri: ''
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+  return {
+      headers: {
+          ...headers,
+          authorization: Boolean(token) ? `JWT ${token}` : '',
+      },
+  };
+});
+
+const httpAuthLink = authLink.concat(httpLink);
+
+export const client = new ApolloClient({
+  link: from([httpAuthLink]),
+  cache: new InMemoryCache(),
+});
 
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
